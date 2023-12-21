@@ -1,5 +1,5 @@
 use iced::executor;
-use iced::widget::{column, container, horizontal_space, row, text, text_editor};
+use iced::widget::{button, column, container, horizontal_space, row, text, text_editor};
 use iced::{Application, Command, Element, Length, Settings, Theme};
 
 use std::io;
@@ -12,13 +12,14 @@ fn main() -> iced::Result {
 
 struct Editor {
     content: text_editor::Content,
-    error: Option<io::ErrorKind>,
+    error: Option<Error>,
 }
 
 #[derive(Debug, Clone)]
 enum Message {
     Edit(text_editor::Action),
-    FileOpened(Result<Arc<String>, io::ErrorKind>),
+    Open,
+    FileOpened(Result<Arc<String>, Error>),
 }
 
 impl Application for Editor {
@@ -48,18 +49,22 @@ impl Application for Editor {
         match message {
             Message::Edit(action) => {
                 self.content.edit(action);
+                Command::none()
             }
+            Message::Open => Command::perform(pick_file(), Message::FileOpened),
             Message::FileOpened(Ok(content)) => {
                 self.content = text_editor::Content::with(&content);
+                Command::none()
             }
             Message::FileOpened(Err(error)) => {
                 self.error = Some(error);
+                Command::none()
             }
         }
-        Command::none()
     }
 
     fn view(&self) -> iced::Element<'_, Message> {
+        let controls = row![button("Add a File").on_press(Message::Open)];
         let input = text_editor(&self.content).on_edit(Message::Edit);
         let position = {
             let (line, column) = self.content.cursor_position();
@@ -69,10 +74,11 @@ impl Application for Editor {
 
         let status_bar = row![horizontal_space(Length::Fill), position];
 
-        container(column![input, status_bar].spacing(5))
+        container(column![controls, input, status_bar].spacing(5))
             .padding(12)
             .into()
     }
+
     fn theme(&self) -> Theme {
         Theme::Dark
     }
@@ -92,9 +98,9 @@ async fn load_file(path: impl AsRef<Path>) -> Result<Arc<String>, Error> {
     tokio::fs::read_to_string(path)
         .await
         .map(Arc::new)
-        .map_err(|error| error.kind())
-        .map_err(Error::IO)
+        .map_err(|error| Error::IO(error.kind()))
 }
+
 #[derive(Debug, Clone)]
 enum Error {
     DialogClosed,
