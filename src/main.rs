@@ -2,14 +2,17 @@ use iced::executor;
 use iced::widget::{button, column, container, horizontal_space, row, text, text_editor};
 use iced::{Application, Command, Element, Font, Length, Settings, Theme};
 
-use std::{io, env, vec};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::{env, io};
 
 fn main() -> iced::Result {
     Editor::run(Settings {
-        fonts: vec![include_bytes!("../fonts/editor-icons.ttf").as_slice().into()],
-        ..Settings::default()})
+        fonts: vec![include_bytes!("../fonts/editor-icons.ttf")
+            .as_slice()
+            .into()],
+        ..Settings::default()
+    })
 }
 
 struct Editor {
@@ -41,15 +44,12 @@ impl Application for Editor {
                 content: text_editor::Content::new(),
                 error: None,
             },
-            Command::perform(
-                load_file(default_file()),
-                Message::FileOpened,
-            ),
+            Command::perform(load_file(default_file()), Message::FileOpened),
         )
     }
 
     fn title(&self) -> String {
-        String::from("NSeditor")
+        String::from("IntelByte-Studio alpha build")
     }
 
     fn update(&mut self, message: Message) -> Command<Message> {
@@ -91,10 +91,11 @@ impl Application for Editor {
 
     fn view(&self) -> iced::Element<'_, Message> {
         let controls = row![
-            action(button(new_icon()), Message::New),
-            action(button(open_icon()),Message::Open),
-            action(button(save_icon()), Message::Save)
-        ].spacing(7);
+            action(new_icon(), Message::New),
+            action(save_icon(), Message::Save),
+            action(open_icon(), Message::Open)
+        ]
+        .spacing(7);
         let input = text_editor(&self.content).on_edit(Message::Edit);
 
         let status_bar = {
@@ -124,25 +125,26 @@ impl Application for Editor {
     }
 }
 
-fn action<'a>(content: Element<'a, Message>, on_press: Message) => Element<'a, Message> {
-    button(container(content).width(55)).on_press(on_press).padding([5, 7]);
+fn action<'a>(content: Element<'a, Message>, on_press: Message) -> Element<'a, Message> {
+    button(container(content).width(15).center_x())
+        .on_press(on_press)
+        .padding([5, 7])
+        .into()
 }
 
-
- fn open_icon<'a>() -> Element<'a, Message> {
+fn open_icon<'a>() -> Element<'a, Message> {
     icon('\u{F115}')
- }
+}
 
- fn save_icon<'a>() -> Element<'a, Message> {
+fn save_icon<'a>() -> Element<'a, Message> {
     icon('\u{E800}')
- }
+}
 
- fn new_icon<'a>() -> Element<'a, Message> {
+fn new_icon<'a>() -> Element<'a, Message> {
     icon('\u{F0F6}')
- }
+}
 
-
-fn icon<'a> (codepoint: char) -> Element<'a, Message> {
+fn icon<'a>(codepoint: char) -> Element<'a, Message> {
     const ICON_FONT: Font = Font::with_name("editor-icons");
 
     text(codepoint).font(ICON_FONT).into()
