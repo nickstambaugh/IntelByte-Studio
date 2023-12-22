@@ -44,8 +44,4 @@ If you find any issues or have suggestions for improvements, feel free to open a
 
 ## License
 
-IntelByte Studio is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-*Note: The name "IntelByte Studio" is a fictional name created for the purpose of this readme. You may replace it with the actual name you decide to use for your Rust code editor.*
+IntelByte Studio is licensed under the MIT License.
