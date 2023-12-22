@@ -36,7 +36,7 @@ This will build and launch IntelByte Studio, loading the content of the `main.rs
 
 - **Text Editing**: Use the text editor to modify the content of the loaded file.
 
-- **Cursor Position**: The current cursor position is displayed in the status bar at the bottom of the editor.
+-- **WIP - Built in Graphics**: Build graphs quickly from Rust and Python code.
 
 ## Contributing
 
