@@ -91,9 +91,9 @@ impl Application for Editor {
 
     fn view(&self) -> iced::Element<'_, Message> {
         let controls = row![
-            button(new_icon()).on_press(Message::New),
-            button(open_icon()).on_press(Message::Open),
-            button(save_icon()).on_press(Message::Save)
+            action(button(new_icon()), Message::New),
+            action(button(open_icon()),Message::Open),
+            action(button(save_icon()), Message::Save)
         ].spacing(7);
         let input = text_editor(&self.content).on_edit(Message::Edit);
 
@@ -124,16 +124,21 @@ impl Application for Editor {
     }
 }
 
+fn action<'a>(content: Element<'a, Message>, on_press: Message) => Element<'a, Message> {
+    button(container(content).width(55)).on_press(on_press).padding([5, 7]);
+}
+
+
  fn open_icon<'a>() -> Element<'a, Message> {
-    icon('\{uF115}')
+    icon('\u{F115}')
  }
 
  fn save_icon<'a>() -> Element<'a, Message> {
-    icon('\{uE800}')
+    icon('\u{E800}')
  }
 
  fn new_icon<'a>() -> Element<'a, Message> {
-    icon('\{F0F6}')
+    icon('\u{F0F6}')
  }
 
 
