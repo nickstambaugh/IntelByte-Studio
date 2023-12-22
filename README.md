@@ -16,7 +16,9 @@ The primary goal of IntelByte Studio is to offer a streamlined and intelligent c
 
 - **Dark Theme**: IntelByte Studio features a dark theme for a comfortable and visually pleasing coding experience.
 
-- **WIP - Built in Graphs**: Coming soon
+- **Syntax Highlighting**: Choose from different themes.
+
+- **WIP - Built in Graphics**: Coming soon. Tailored to business intelligence with plotters or plotly.
 
 ## Getting Started
 
