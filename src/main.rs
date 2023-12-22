@@ -1,4 +1,6 @@
 use iced::executor;
+use iced::highlighter::{self, Highlighter};
+use iced::theme;
 use iced::widget::{button, column, container, horizontal_space, row, text, text_editor, tooltip};
 use iced::{Application, Command, Element, Font, Length, Settings, Theme};
 
@@ -8,6 +10,7 @@ use std::{env, io};
 
 fn main() -> iced::Result {
     Editor::run(Settings {
+        default_font: Font::MONOSPACE,
         fonts: vec![include_bytes!("../fonts/editor-icons.ttf")
             .as_slice()
             .into()],
@@ -96,7 +99,21 @@ impl Application for Editor {
             action(open_icon(), "Open a File!", Message::Open)
         ]
         .spacing(7);
-        let input = text_editor(&self.content).on_edit(Message::Edit);
+        let input = text_editor(&self.content)
+            .on_edit(Message::Edit)
+            .highlight::<Highlighter>(
+                highlighter::Settings {
+                    theme: highlighter::Theme::SolarizedDark,
+
+                    extension: self
+                        .path
+                        .as_ref()
+                        .and_then(|path| path.extension()?.to_str())
+                        .unwrap_or("rs")
+                        .to_string(),
+                },
+                |highlight, _theme| highlight.to_format(),
+            );
 
         let status_bar = {
             let status = if let Some(Error::IOFailed(error)) = self.error.as_ref() {
@@ -126,17 +143,18 @@ impl Application for Editor {
 }
 
 fn action<'a>(
-    content: Element<'a, Message>, 
-    label: &str, 
-    on_press: Message
+    content: Element<'a, Message>,
+    label: &str,
+    on_press: Message,
 ) -> Element<'a, Message> {
     tooltip(
         button(container(content).width(15).center_x())
-    .on_press(on_press)
-    .padding([5, 7]), 
-        label, 
+            .on_press(on_press)
+            .padding([5, 7]),
+        label,
         tooltip::Position::FollowCursor,
     )
+    .style(theme::Container::Box)
     .into()
 }
 
