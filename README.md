@@ -16,7 +16,9 @@ The primary goal of IntelByte Studio is to offer a streamlined and intelligent c
 
 - **Dark Theme**: IntelByte Studio features a dark theme for a comfortable and visually pleasing coding experience.
 
-- **WIP - Built in Graphs**: Coming soon
+- **Syntax Highlighting**: Choose from different themes.
+
+- **WIP - Built in Graphics**: Coming soon. Tailored to business intelligence with plotters or plotly.
 
 ## Getting Started
 
@@ -34,7 +36,7 @@ This will build and launch IntelByte Studio, loading the content of the `main.rs
 
 - **Text Editing**: Use the text editor to modify the content of the loaded file.
 
-- **Cursor Position**: The current cursor position is displayed in the status bar at the bottom of the editor.
+-- **WIP - Built in Graphics**: Build graphs quickly from Rust and Python code.
 
 ## Contributing
 
@@ -42,8 +44,4 @@ If you find any issues or have suggestions for improvements, feel free to open a
 
 ## License
 
-IntelByte Studio is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-*Note: The name "IntelByte Studio" is a fictional name created for the purpose of this readme. You may replace it with the actual name you decide to use for your Rust code editor.*
+IntelByte Studio is licensed under the MIT License.
