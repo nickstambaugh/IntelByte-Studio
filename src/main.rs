@@ -3,17 +3,11 @@
 // --------------------------------------------------------------
 //
 // Welcome to IntelByte Studio - A Rust Focused Code Editor
-//
-// This code defines the main structure and behavior of the Rust
-// code editor. Explore and modify it to enhance the editor's
-// features and functionality.
 // 
 // Created By: Nick Stambaugh
 // Thanks to: Iced Documentation and Tutorials
 //
 // --------------------------------------------------------------
-
-
 use iced::executor;
 use iced::highlighter::{self, Highlighter};
 use iced::theme;
