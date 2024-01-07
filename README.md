@@ -8,7 +8,10 @@ The primary goal of IntelByte Studio is to offer a streamlined and intelligent c
 
 # Download
 
-Windows
+**Windows:**
+
+- [Download IntelByte Studio](https://github.com/NicholasStambaugh/IntelByte-Studio/releases/tag/binary)
+
 
 ## Features
 
