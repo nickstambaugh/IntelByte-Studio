@@ -6,6 +6,10 @@ It provides a simple and efficient environment for editing Rust code files.
 
 The primary goal of IntelByte Studio is to offer a streamlined and intelligent coding experience, merging the concepts of Business Intelligence with the power and simplicity of Rust.
 
+# Download
+
+Windows
+
 ## Features
 
 - **Text Editing**: IntelByte Studio offers a basic text editing interface with features such as cursor movement and content manipulation.
