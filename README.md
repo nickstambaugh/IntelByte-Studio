@@ -1,6 +1,6 @@
 # IntelByte Studio
 
-IntelByte Studio is a lightweight Rust code editor built with the Iced framework. 
+IntelByte Studio is a lightweight, single-file Rust text editor built within the Iced framework. 
 
 It provides a simple and efficient environment for editing Rust code files. 
 
